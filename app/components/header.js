@@ -17,10 +17,15 @@ export default () => (
           padding: 0.5rem 4rem;
           position: fixed;
           box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
+          box-shadow: 0px 10px 20px hsla(200, 20%, 20%, 0.20);
+        }
+        a {
+          text-decoration: none;
         }
         .logo {
           font-size: 2rem;
           margin: 0;
+          color: black;
         }
         .links {
           display: flex;
@@ -36,11 +41,11 @@ export default () => (
           color: white;
           text-decoration: none;
         }
-        .nav-link {
+        .nav_link {
           cursor: pointer;
           transition: all 0.5s ease;
           &:hover {
-            color: orange;
+            color: red;
           }
         }
         `
@@ -49,9 +54,12 @@ export default () => (
   <header
     className = 'header'
     >
-    <p className='logo'>
+    
+    <Link href="/" passHref>
+          <a css={{ color: 'hsl(200,20%,50%)', cursor: 'pointer' }}><p className='logo'>
       My Blog
-    </p>
+    </p></a>
+        </Link>
     <div className='links'>
       <Link href="/post/new" passHref >
         <a className='nav-btn'>Add Post</a>

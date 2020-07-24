@@ -14,21 +14,17 @@ import { withApollo } from '../lib/apollo';
 
 const Post = ({ post }) => {
   return (
-    <Link href={`/post/[slug]?slug=${post.slug}`} as={`/post/${post.slug}`} passHref>
-      <a
-        css={{
-          display: 'block',
-          background: 'white',
-          boxShadow: '0px 10px 20px hsla(200, 20%, 20%, 0.20)',
-          marginBottom: 32,
-          cursor: 'pointer',
-          borderRadius: 6,
-          overflow: 'hidden',
-        }}
-      >
-        {post.image ? <img src={post.image.publicUrl} css={{ width: '100%' }} /> : null}
+    <div className='post'>
+        <Link href={`/post/[slug]?slug=${post.slug}`} as={`/post/${post.slug}`} passHref>
+        <a>
+        <div className = 'postImage'>
+        {post.image ? <img src={post.image.publicUrl} /> : null}
+        </div>
+        </a>
+        </Link>
         <article css={{ padding: '1em' }}>
-          <h3 css={{ marginTop: 0 }}>{post.title}</h3>
+        <Link href={`/post/[slug]?slug=${post.slug}`} as={`/post/${post.slug}`} passHref>
+      <a><h3 css={{ marginTop: 0 }}>{post.title}</h3></a></Link>
           <section dangerouslySetInnerHTML={{ __html: post.body }} />
           <div css={{ marginTop: '1em', borderTop: '1px solid hsl(200, 20%, 80%)' }}>
             <p css={{ fontSize: '0.8em', marginBottom: 0, color: 'hsl(200, 20%, 50%)' }}>
@@ -37,8 +33,7 @@ const Post = ({ post }) => {
             </p>
           </div>
         </article>
-      </a>
-    </Link>
+    </div>
   );
 };
 
@@ -73,6 +68,7 @@ export default withApollo(() => {
         display: flex;
         align-items: center;
         height: 100vh;
+        max-width: 1200px;
       }
       .content {
         width: 45%;
@@ -89,7 +85,7 @@ export default withApollo(() => {
         font-size: 2.8rem;
       }
       .content .btn {
-        padding: 0.5rem 1.5rem;
+        padding: 0.8rem 1.5rem;
         color: white;
         background: red;
         border-radius: 25px;
@@ -100,6 +96,9 @@ export default withApollo(() => {
       .latest {
         width: 80%;
         margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
       .latest h2 {
         font-size: 2rem;
@@ -108,7 +107,33 @@ export default withApollo(() => {
 
       .posts {
         display: grid;
-        grid-template-columns: 
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-gap: 2rem;
+        max-width: 1200px;
+      }
+      .posts .post {
+        background: white;
+        box-shadow: 0px 10px 20px hsla(200, 20%, 20%, 0.20);
+        border-radius: 6px;
+      }
+      .post .postImage {
+        height: 250px;
+        width: 100%;
+      }
+      .postImage img {
+        height: 100%;
+        width: 100%;
+      }
+      .post article {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      article a {
+        text-decoration: none;
+      }
+      article h3 {
+        color: red;
       }
       `
     }

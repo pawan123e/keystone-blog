@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx, Global, css } from '@emotion/core';
 import { format, parseISO } from 'date-fns';
 
 import Layout from '../../templates/layout';
@@ -212,12 +212,21 @@ const PostPage = withApollo(({ slug }) => {
   const { data, loading, error } = useQuery(ALL_QUERIES, { variables: { slug } });
 
   return (
+    <>
+    <Global 
+    styles={
+      css`
+      .post_data{
+        padding-top: 5rem;
+        width: 80%;
+        margin: auto;
+      }
+      `
+    }
+    />
     <Layout>
       <Header />
-      <div css={{ margin: '48px 0' }}>
-        <Link href="/" passHref>
-          <a css={{ color: 'hsl(200,20%,50%)', cursor: 'pointer' }}>{'< Go Back'}</a>
-        </Link>
+      <div className='post_data'>
 
         <Render>
           {() => {
@@ -265,6 +274,7 @@ const PostPage = withApollo(({ slug }) => {
         </Render>
       </div>
     </Layout>
+    </>
   );
 });
 
