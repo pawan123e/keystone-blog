@@ -105,6 +105,11 @@ export default withApollo(() => {
         font-size: 2rem;
         color: black;
       }
+
+      .posts {
+        display: grid;
+        grid-template-columns: 
+      }
       `
     }
     />
@@ -127,7 +132,7 @@ export default withApollo(() => {
         ) : error ? (
           <p>Error!</p>
         ) : (
-          <div>
+          <div className = 'posts'>
             {data.allPosts.length ? (
               data.allPosts.map(post => <Post post={post} key={post.id} />)
             ) : (
