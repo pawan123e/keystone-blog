@@ -65,6 +65,9 @@ const isAdmin = ({ authentication: { item: user } }) => !!user && !!user.isAdmin
 exports.Post = {
   fields: {
     title: { type: Text },
+    prepTime: {type: Text},
+    cookTime: {type: Text},
+    calories: {type: Text},
     slug: { type: Slug, from: 'title' },
     author: {
       type: AuthedRelationship,

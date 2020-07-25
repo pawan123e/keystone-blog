@@ -33,8 +33,9 @@ const Input = styled.input({
 });
 
 const ADD_POST = gql`
-  mutation AddPost($title: String!, $body: String!, $posted: DateTime!, $image: Upload!) {
-    createPost(data: { title: $title, body: $body, posted: $posted, image: $image }) {
+  mutation AddPost($title: String!, $body: String!, $prepTime: String!, 
+    $cookTime: String!, $calories: String!, $posted: DateTime!, $image: Upload!) {
+    createPost(data: { title: $title, body: $body, posted: $posted, image: $image, prepTime: $prepTime, cookTime: $cookTime, calories: $calories,}) {
       id
       slug
     }
@@ -43,6 +44,9 @@ const ADD_POST = gql`
 
 export default withApollo(() => {
   const [title, setTitle] = useState('');
+  const [prepTime, setPrepTime] = useState('');
+  const [cookTime, setCookTime] = useState('');
+  const [calories, setCalories] = useState('');
   const [body, setBody] = useState('');
   const [image, setImage] = useState('');
   const [slug, setSlug] = useState('');
@@ -67,7 +71,7 @@ export default withApollo(() => {
 
   return (
     <Layout>
-      <div css={{ margin: '48px 0' }}>
+      <div css={{ margin: '4rem 20rem' }}>
         <Link href="/" passHref>
           <a css={{ color: 'hsl(200,20%,50%)', cursor: 'pointer' }}>{'< Go Back'}</a>
         </Link>
@@ -110,12 +114,18 @@ export default withApollo(() => {
                     title,
                     body,
                     image,
+                    prepTime,
+                    calories,
+                    cookTime,
                     posted: new Date(),
                   },
                 });
 
                 setTitle('');
                 setBody('');
+                setPrepTime('');
+                setCookTime('');
+                setCalories('');
               }}
             >
               <FormGroup>
@@ -147,6 +157,42 @@ export default withApollo(() => {
                   value={body}
                   onChange={event => {
                     setBody(event.target.value);
+                  }}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="prepTime">Prep Time:</Label>
+                <Input
+                  disabled={formDisabled}
+                  type="text"
+                  name="prepTime"
+                  value={prepTime}
+                  onChange={event => {
+                    setPrepTime(event.target.value);
+                  }}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="cookTime">Cook Time:</Label>
+                <Input
+                  disabled={formDisabled}
+                  type="text"
+                  name="cookTime"
+                  value={cookTime}
+                  onChange={event => {
+                    setCookTime(event.target.value);
+                  }}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="calories">Calories:</Label>
+                <Input
+                  disabled={formDisabled}
+                  type="text"
+                  name="calories"
+                  value={calories}
+                  onChange={event => {
+                    setCalories(event.target.value);
                   }}
                 />
               </FormGroup>

@@ -41,6 +41,9 @@ const ALL_QUERIES = gql`
       slug
       body
       posted
+      prepTime
+      cookTime
+      calories
       image {
         publicUrl
       }
@@ -221,6 +224,35 @@ const PostPage = withApollo(({ slug }) => {
         width: 80%;
         margin: auto;
       }
+      .main {
+        display: flex;
+        margin-top: 3rem;
+      }
+      .left {
+        width: 70%;
+      }
+      .left .topPart {
+        height: 340px;
+        width: 100%;
+        display: flex;
+        border: 1px solid #e4e4e4;
+      }
+      .topPart .foodImg {
+        width: 75%;
+        height: 100%;
+      }
+      .foodImg img {
+         width: 100%;
+         height: 100%;
+      }
+      .topPart .foodDetail {
+        
+        width: 25%;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
       `
     }
     />
@@ -239,32 +271,33 @@ const PostPage = withApollo(({ slug }) => {
 
             return (
               <>
-                <div
-                  css={{
-                    background: 'white',
-                    margin: '24px 0',
-                    boxShadow: '0px 10px 20px hsla(200, 20%, 20%, 0.20)',
-                    marginBottom: 32,
-                    borderRadius: 6,
-                    overflow: 'hidden',
-                  }}
-                >
+                <div className='main'>
                   <Head>
                     <title>{post.title}</title>
                   </Head>
-                  {post.image ? <img src={post.image.publicUrl} css={{ width: '100%' }} /> : null}
+                  <div className='left'>
+                  <h1 css={{ marginTop: 0 }}>{post.title}</h1>
+                  <p>By {post.author ? post.author.name : 'someone'} | Updated: {format(parseISO(post.posted), 'dd/MM/yyyy')}</p>
+                  <div className='topPart'>
+                  <div className='foodImg'>{post.image ? <img src={post.image.publicUrl} css={{ width: '100%' }} /> : null}
+                  </div>
+                  <div className='foodDetail'>
+                    <p>Prep Time {post.prepTime}</p>
+                    <p>Cook Time {post.cookTime}</p>
+                    <p>Calories {post.calories}</p>
+                  </div>
+                  </div>
+                  {console.log('body of the post', post.body)}
                   <article css={{ padding: '1em' }}>
-                    <h1 css={{ marginTop: 0 }}>{post.title}</h1>
                     <section dangerouslySetInnerHTML={{ __html: post.body }} />
+                    <section>
+                      {post.body}
+                    </section>
                     <div css={{ marginTop: '1em', borderTop: '1px solid hsl(200, 20%, 80%)' }}>
-                      <p css={{ fontSize: '0.8em', marginBottom: 0, color: 'hsl(200, 20%, 50%)' }}>
-                        Posted by {post.author ? post.author.name : 'someone'} on{' '}
-                        {format(parseISO(post.posted), 'dd/MM/yyyy')}
-                      </p>
                     </div>
                   </article>
                 </div>
-
+                </div>
                 <Comments data={data} />
 
                 <AddComments post={post} />
@@ -273,8 +306,10 @@ const PostPage = withApollo(({ slug }) => {
           }}
         </Render>
       </div>
+     
     </Layout>
     </>
+    
   );
 });
 
