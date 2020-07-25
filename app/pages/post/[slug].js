@@ -236,6 +236,7 @@ const PostPage = withApollo(({ slug }) => {
         width: 100%;
         display: flex;
         border: 1px solid #e4e4e4;
+        border-radius: 8px;
       }
       .topPart .foodImg {
         width: 75%;
@@ -288,11 +289,9 @@ const PostPage = withApollo(({ slug }) => {
                   </div>
                   </div>
                   {console.log('body of the post', post.body)}
-                  <article css={{ padding: '1em' }}>
-                    <section dangerouslySetInnerHTML={{ __html: post.body }} />
-                    <section>
-                      {post.body}
-                    </section>
+                  <article css={{ padding: '1em 0' }}>
+                      {/* <p className='postBody'>{post.body}</p> */}
+                      <section dangerouslySetInnerHTML={{ __html: post.body }} />
                     <div css={{ marginTop: '1em', borderTop: '1px solid hsl(200, 20%, 80%)' }}>
                     </div>
                   </article>

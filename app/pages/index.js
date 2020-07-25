@@ -25,7 +25,8 @@ const Post = ({ post }) => {
         <article css={{ padding: '1em' }}>
         <Link href={`/post/[slug]?slug=${post.slug}`} as={`/post/${post.slug}`} passHref>
       <a><h3 css={{ marginTop: 0 }}>{post.title}</h3></a></Link>
-          <section dangerouslySetInnerHTML={{ __html: post.body }} />
+          {/* <p css = {{margin: '0'}}>{post.body.slice(0,150)}...</p> */}
+          <section dangerouslySetInnerHTML={{ __html: post.body.slice(0,150) + '...' }} />
           <div css={{ marginTop: '1em', borderTop: '1px solid hsl(200, 20%, 80%)' }}>
             <p css={{ fontSize: '0.8em', marginBottom: 0, color: 'hsl(200, 20%, 50%)' }}>
               Posted by {post.author ? post.author.name : 'someone'} on{' '}
@@ -107,7 +108,8 @@ export default withApollo(() => {
 
       .posts {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(3,1fr);
         grid-gap: 2rem;
         max-width: 1200px;
       }
